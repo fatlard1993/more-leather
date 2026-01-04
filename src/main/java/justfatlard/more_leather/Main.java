@@ -1,13 +1,13 @@
 package justfatlard.more_leather;
 
+import eu.pb4.polymer.core.api.item.PolymerBlockItem;
+import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.MapColor;
-import net.minecraft.block.PillarBlock;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroups;
 import net.minecraft.item.Items;
@@ -34,12 +34,12 @@ import java.util.Set;
 public class Main implements ModInitializer {
 	public static final String MOD_ID = "more-leather-justfatlard";
 
-	// Block of Leather
+	// Block of Leather (Polymer-compatible)
 	public static final RegistryKey<Block> LEATHER_BLOCK_KEY = RegistryKey.of(
 		RegistryKeys.BLOCK,
 		Identifier.of(MOD_ID, "leather_block")
 	);
-	public static final Block LEATHER_BLOCK = new PillarBlock(
+	public static final LeatherBlock LEATHER_BLOCK = new LeatherBlock(
 		AbstractBlock.Settings.create()
 			.registryKey(LEATHER_BLOCK_KEY)
 			.mapColor(MapColor.ORANGE)
@@ -51,9 +51,10 @@ public class Main implements ModInitializer {
 		RegistryKeys.ITEM,
 		Identifier.of(MOD_ID, "leather_block")
 	);
-	public static final Item LEATHER_BLOCK_ITEM = new BlockItem(
+	public static final Item LEATHER_BLOCK_ITEM = new PolymerBlockItem(
 		LEATHER_BLOCK,
-		new Item.Settings().registryKey(LEATHER_BLOCK_ITEM_KEY).useBlockPrefixedTranslationKey()
+		new Item.Settings().registryKey(LEATHER_BLOCK_ITEM_KEY).useBlockPrefixedTranslationKey(),
+		Items.BROWN_WOOL
 	);
 
 	private record DropConfig(float leatherMin, float leatherMax, float scrapsMin, float scrapsMax, boolean hasVanillaLeather) {}
@@ -114,9 +115,16 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Enable Polymer resource pack generation
+		PolymerResourcePackUtils.addModAssets(MOD_ID);
+		PolymerResourcePackUtils.markAsRequired();
+
 		// Register block and item
 		Registry.register(Registries.BLOCK, LEATHER_BLOCK_KEY, LEATHER_BLOCK);
 		Registry.register(Registries.ITEM, LEATHER_BLOCK_ITEM_KEY, LEATHER_BLOCK_ITEM);
+
+		// Register Polymer block states
+		LEATHER_BLOCK.registerPolymerBlockStates();
 
 		// Add to creative tab (Building Blocks, after leather)
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(content -> {
