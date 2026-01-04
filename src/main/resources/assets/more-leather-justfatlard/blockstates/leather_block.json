@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "more-leather-justfatlard:block/leather_block_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "more-leather-justfatlard:block/leather_block"
+    },
+    "axis=z": {
+      "model": "more-leather-justfatlard:block/leather_block_horizontal",
+      "x": 90
+    }
+  }
+}

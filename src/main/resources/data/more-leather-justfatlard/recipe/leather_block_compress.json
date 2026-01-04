@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LLL",
+    "LLL",
+    "LLL"
+  ],
+  "key": {
+    "L": "minecraft:leather"
+  },
+  "result": {
+    "id": "more-leather-justfatlard:leather_block",
+    "count": 1
+  }
+}
