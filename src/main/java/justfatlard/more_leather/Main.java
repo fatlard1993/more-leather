@@ -1,6 +1,5 @@
 package justfatlard.more_leather;
 
-import eu.pb4.polymer.core.api.item.PolymerBlockItem;
 import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
@@ -51,10 +50,9 @@ public class Main implements ModInitializer {
 		RegistryKeys.ITEM,
 		Identifier.of(MOD_ID, "leather_block")
 	);
-	public static final Item LEATHER_BLOCK_ITEM = new PolymerBlockItem(
+	public static final LeatherBlockItem LEATHER_BLOCK_ITEM = new LeatherBlockItem(
 		LEATHER_BLOCK,
-		new Item.Settings().registryKey(LEATHER_BLOCK_ITEM_KEY).useBlockPrefixedTranslationKey(),
-		Items.BROWN_WOOL
+		new Item.Settings().registryKey(LEATHER_BLOCK_ITEM_KEY).useBlockPrefixedTranslationKey()
 	);
 
 	private record DropConfig(float leatherMin, float leatherMax, float scrapsMin, float scrapsMax, boolean hasVanillaLeather) {}
@@ -123,8 +121,8 @@ public class Main implements ModInitializer {
 		Registry.register(Registries.BLOCK, LEATHER_BLOCK_KEY, LEATHER_BLOCK);
 		Registry.register(Registries.ITEM, LEATHER_BLOCK_ITEM_KEY, LEATHER_BLOCK_ITEM);
 
-		// Register Polymer block states
-		LEATHER_BLOCK.registerPolymerBlockStates();
+		// Initialize Polymer block states after registration
+		LEATHER_BLOCK.initPolymerState();
 
 		// Add to creative tab (Building Blocks, after leather)
 		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(content -> {
