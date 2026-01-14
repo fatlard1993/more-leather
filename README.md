@@ -7,6 +7,11 @@ A Fabric mod for Minecraft 1.21.11 that makes leather more accessible and useful
 ![Server-Side](https://img.shields.io/badge/Server--Side-Compatible-brightgreen)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
+## Screenshots
+
+![More Leather Block](img.png)
+![More Leather Items](img2.png)
+
 ## Features
 
 ### Renamed Item
