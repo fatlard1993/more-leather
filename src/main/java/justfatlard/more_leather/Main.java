@@ -1,58 +1,65 @@
 package justfatlard.more_leather;
 
-import eu.pb4.polymer.resourcepack.api.PolymerResourcePackUtils;
+import justfatlard.pandorical.api.BlockRegistration;
+import justfatlard.pandorical.api.ItemRegistration;
+import justfatlard.pandorical.api.PandoricalApi;
+import justfatlard.pandorical.api.VanillaItemOverride;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
+import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
 import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.MapColor;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroups;
-import net.minecraft.item.Items;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.condition.EntityPropertiesLootCondition;
-import net.minecraft.loot.context.LootContext;
-import net.minecraft.loot.entry.ItemEntry;
-import net.minecraft.loot.function.SetCountLootFunction;
-import net.minecraft.loot.provider.number.ConstantLootNumberProvider;
-import net.minecraft.loot.provider.number.UniformLootNumberProvider;
-import net.minecraft.predicate.entity.EntityEquipmentPredicate;
-import net.minecraft.predicate.entity.EntityPredicate;
-import net.minecraft.predicate.item.ItemPredicate;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.Identifier;
+import net.minecraft.advancements.criterion.EntityEquipmentPredicate;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.item.CreativeModeTabs;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.Set;
 
 public class Main implements ModInitializer {
 	public static final String MOD_ID = "more-leather-justfatlard";
+	private static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-	// Block of Leather (Polymer-compatible)
-	public static final RegistryKey<Block> LEATHER_BLOCK_KEY = RegistryKey.of(
-		RegistryKeys.BLOCK,
-		Identifier.of(MOD_ID, "leather_block")
+	// Block of Leather
+	public static final ResourceKey<Block> LEATHER_BLOCK_KEY = ResourceKey.create(
+		Registries.BLOCK,
+		Identifier.fromNamespaceAndPath(MOD_ID, "leather_block")
 	);
 	public static final LeatherBlock LEATHER_BLOCK = new LeatherBlock(
-		AbstractBlock.Settings.create()
-			.registryKey(LEATHER_BLOCK_KEY)
-			.mapColor(MapColor.ORANGE)
+		BlockBehaviour.Properties.of()
+			.setId(LEATHER_BLOCK_KEY)
+			.mapColor(MapColor.COLOR_ORANGE)
 			.strength(0.8f)
-			.sounds(BlockSoundGroup.WOOL)
+			.sound(SoundType.WOOL)
 	);
 
-	public static final RegistryKey<Item> LEATHER_BLOCK_ITEM_KEY = RegistryKey.of(
-		RegistryKeys.ITEM,
-		Identifier.of(MOD_ID, "leather_block")
+	public static final ResourceKey<Item> LEATHER_BLOCK_ITEM_KEY = ResourceKey.create(
+		Registries.ITEM,
+		Identifier.fromNamespaceAndPath(MOD_ID, "leather_block")
 	);
 	public static final LeatherBlockItem LEATHER_BLOCK_ITEM = new LeatherBlockItem(
 		LEATHER_BLOCK,
-		new Item.Settings().registryKey(LEATHER_BLOCK_ITEM_KEY).useBlockPrefixedTranslationKey()
+		new Item.Properties().setId(LEATHER_BLOCK_ITEM_KEY).useBlockDescriptionPrefix()
 	);
 
 	private record DropConfig(float leatherMin, float leatherMax, float scrapsMin, float scrapsMax, boolean hasVanillaLeather) {}
@@ -113,20 +120,26 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// Enable Polymer resource pack generation
-		PolymerResourcePackUtils.addModAssets(MOD_ID);
-		PolymerResourcePackUtils.markAsRequired();
+		// Register with Pandorical if available
+		if (PandoricalApi.isAvailable()) {
+			PandoricalApi.content().registerBlock(MOD_ID + ":leather_block", new BlockRegistration()
+				.model(MOD_ID + ":block/leather_block"));
+			PandoricalApi.content().registerItem(MOD_ID + ":leather_block", new ItemRegistration()
+				.model(MOD_ID + ":item/leather_block"));
+			PandoricalApi.content().overrideVanillaItem("minecraft:rabbit_hide",
+				new VanillaItemOverride()
+					.name("Leather Scraps")
+					.textureFrom(MOD_ID, "textures/item/leather_scraps.png"));
+			PandoricalApi.content().registerModAssets(MOD_ID);
+		}
 
-		// Register block and item
-		Registry.register(Registries.BLOCK, LEATHER_BLOCK_KEY, LEATHER_BLOCK);
-		Registry.register(Registries.ITEM, LEATHER_BLOCK_ITEM_KEY, LEATHER_BLOCK_ITEM);
+		// Register block
+		Registry.register(BuiltInRegistries.BLOCK, LEATHER_BLOCK_KEY, LEATHER_BLOCK);
+		Registry.register(BuiltInRegistries.ITEM, LEATHER_BLOCK_ITEM_KEY, LEATHER_BLOCK_ITEM);
 
-		// Initialize Polymer block states after registration
-		LEATHER_BLOCK.initPolymerState();
-
-		// Add to creative tab (Building Blocks, after leather)
-		ItemGroupEvents.modifyEntriesEvent(ItemGroups.BUILDING_BLOCKS).register(content -> {
-			content.addAfter(Items.HAY_BLOCK, LEATHER_BLOCK_ITEM);
+		// Add to creative tab (Building Blocks, after hay block)
+		CreativeModeTabEvents.modifyOutputEvent(CreativeModeTabs.BUILDING_BLOCKS).register(entries -> {
+			entries.insertAfter(Items.HAY_BLOCK, LEATHER_BLOCK_ITEM);
 		});
 
 		// Loot table modifications
@@ -135,14 +148,15 @@ public class Main implements ModInitializer {
 				return;
 			}
 
-			String path = key.getValue().getPath();
+			String path = key.identifier().getPath();
 
-			// Handle fishing loot
+			// Handle fishing loot - 50% chance of scraps from junk catches
 			if (path.equals("gameplay/fishing/junk")) {
-				LootPool.Builder fishingScrapsPool = LootPool.builder()
-					.with(ItemEntry.builder(Items.RABBIT_HIDE).weight(10))
-					.apply(SetCountLootFunction.builder(UniformLootNumberProvider.create(1, 2)));
-				tableBuilder.pool(fishingScrapsPool);
+				LootPool.Builder fishingScrapsPool = LootPool.lootPool()
+					.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2)))
+					.when(LootItemRandomChanceCondition.randomChance(0.5f));
+				tableBuilder.pool(fishingScrapsPool.build());
 				return;
 			}
 
@@ -158,32 +172,32 @@ public class Main implements ModInitializer {
 			if (config != null) {
 				// Add leather if mob doesn't have vanilla leather drops
 				if (!config.hasVanillaLeather && config.leatherMax > 0) {
-					LootPool.Builder leatherPool = LootPool.builder()
-						.with(ItemEntry.builder(Items.LEATHER))
-						.apply(SetCountLootFunction.builder(
-							UniformLootNumberProvider.create(config.leatherMin, config.leatherMax)));
-					tableBuilder.pool(leatherPool);
+					LootPool.Builder leatherPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.LEATHER))
+						.apply(SetItemCountFunction.setCount(
+							UniformGenerator.between(config.leatherMin, config.leatherMax)));
+					tableBuilder.pool(leatherPool.build());
 				}
 
-				// Add leather scraps (rabbit_hide)
+				// Add leather scraps
 				if (config.scrapsMax > 0) {
-					LootPool.Builder scrapsPool = LootPool.builder()
-						.with(ItemEntry.builder(Items.RABBIT_HIDE))
-						.apply(SetCountLootFunction.builder(
-							UniformLootNumberProvider.create(config.scrapsMin, config.scrapsMax)));
-					tableBuilder.pool(scrapsPool);
+					LootPool.Builder scrapsPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+						.apply(SetItemCountFunction.setCount(
+							UniformGenerator.between(config.scrapsMin, config.scrapsMax)));
+					tableBuilder.pool(scrapsPool.build());
 				}
 			}
 
 			// Leather armor bonus drops for mobs that can wear armor
 			if (ARMOR_WEARING_MOBS.contains(mobName)) {
-				var itemLookup = wrapperLookup.getOrThrow(RegistryKeys.ITEM);
+				var itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM);
 
 				for (ArmorBonus armor : LEATHER_ARMOR) {
-					ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.create()
-						.items(itemLookup, armor.item);
+					ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item()
+						.of(itemLookup, armor.item);
 
-					EntityEquipmentPredicate.Builder equipmentBuilder = EntityEquipmentPredicate.Builder.create();
+					EntityEquipmentPredicate.Builder equipmentBuilder = EntityEquipmentPredicate.Builder.equipment();
 
 					// Determine which slot to check based on armor type
 					if (armor.item == Items.LEATHER_HELMET) {
@@ -196,19 +210,19 @@ public class Main implements ModInitializer {
 						equipmentBuilder.feet(itemPredicate);
 					}
 
-					LootPool.Builder armorBonusPool = LootPool.builder()
-						.with(ItemEntry.builder(Items.RABBIT_HIDE))
-						.apply(SetCountLootFunction.builder(ConstantLootNumberProvider.create(armor.scraps)))
-						.conditionally(EntityPropertiesLootCondition.builder(
-							LootContext.EntityReference.THIS,
-							EntityPredicate.Builder.create().equipment(equipmentBuilder)
+					LootPool.Builder armorBonusPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+						.apply(SetItemCountFunction.setCount(ConstantValue.exactly(armor.scraps)))
+						.when(LootItemEntityPropertyCondition.hasProperties(
+							LootContext.EntityTarget.THIS,
+							EntityPredicate.Builder.entity().equipment(equipmentBuilder)
 						));
 
-					tableBuilder.pool(armorBonusPool);
+					tableBuilder.pool(armorBonusPool.build());
 				}
 			}
 		});
 
-		System.out.println("[more-leather] Loaded More Leather mod!");
+		LOGGER.info("Loaded More Leather mod!");
 	}
 }

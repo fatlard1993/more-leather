@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column_horizontal",
+  "textures": {
+    "end": "more-leather-justfatlard:block/leather_block_top",
+    "side": "more-leather-justfatlard:block/leather_block"
+  }
+}
