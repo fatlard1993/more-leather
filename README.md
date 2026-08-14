@@ -1,60 +1,17 @@
 # More Leather
 
-A Fabric mod for Minecraft 1.21.11 that makes leather more accessible and useful by expanding leather sources, adding deconstruction recipes, and introducing the Block of Leather.
-
-![Minecraft 1.21.11](https://img.shields.io/badge/Minecraft-1.21.11-green)
-![Fabric](https://img.shields.io/badge/Mod%20Loader-Fabric-blue)
-![Server-Side](https://img.shields.io/badge/Server--Side-Compatible-brightgreen)
-![License](https://img.shields.io/badge/License-MIT-yellow)
-
-## Screenshots
-
-![More Leather Block](img.png)
-![More Leather Items](img2.png)
+A Fabric mod that makes leather more accessible and useful by renaming/reskinning rabbit hide into "Leather Scraps," adding a decorative Block of Leather, and adding a wide set of data-driven recipes for turning leather items into scraps and back.
 
 ## Features
 
 ### Renamed Item
-- **Rabbit Hide** → **Leather Scraps**
+- **Rabbit Hide** → **Leather Scraps** (name and texture overridden for Pandorical clients; see below)
 - The vanilla recipe still works: 4 Leather Scraps = 1 Leather
 
 ### Block of Leather
 - Craft 9 leather into a decorative **Block of Leather** (leather roll)
 - Directional placement like logs
 - Decompresses back to 9 leather
-
-### Animal Drops
-Animals now drop leather and/or leather scraps:
-
-| Animal | Leather | Scraps |
-|--------|---------|--------|
-| Cat, Ocelot, Fox, Wolf | 0-1 | 0-2 |
-| Pig, Sheep, Goat | 0-1 | 1-3 |
-| Strider | 0-1 | 1-2 |
-| Polar Bear, Panda, Sniffer | 1-2 | 1-3 |
-| Camel | 1-2 | 1-2 |
-| Cow, Horse, Donkey, Mule, Llama, Trader Llama | vanilla | 1-2 |
-| Mooshroom, Hoglin | vanilla | 2-4 |
-| Ravager | 2-3 | 2-4 |
-| Bat | — | 0-1 |
-
-### Undead Drops
-| Mob | Scraps |
-|-----|--------|
-| Zombie, Drowned, Zombie Villager | 0-1 |
-| Husk | 0-2 |
-
-### Leather Armor Bonus
-When killed, these mobs drop extra scraps for each piece of leather armor worn:
-- Zombie, Husk, Drowned, Zombie Villager
-- Skeleton, Stray, Wither Skeleton
-- Piglin, Zombified Piglin
-
-Bonus per armor piece:
-- Helmet: +4 scraps
-- Chestplate: +6 scraps
-- Leggings: +5 scraps
-- Boots: +3 scraps
 
 ### Deconstruction Recipes
 Break down leather items into scraps (shapeless crafting):
@@ -83,31 +40,24 @@ Break down leather items into scraps (shapeless crafting):
 ### Smelting Recipes
 - **Rotten Flesh** → Leather Scraps (furnace or smoker)
 
-### Fishing
-- Leather scraps added to fishing junk loot (1-2 scraps)
-
-## Installation
-
-1. Install [Fabric Loader](https://fabricmc.net/use/) for Minecraft 1.21.11
-2. Download and install [Fabric API](https://modrinth.com/mod/fabric-api)
-3. Download the latest release of More Leather
-4. Place the jar file in your `mods` folder
-
-### Server-Side Installation
-
-This mod works on servers with vanilla clients! When installed on a server:
-- Vanilla clients will be prompted to download a resource pack
-- If accepted, they see all custom textures and the "Leather Scraps" name
-- If declined, they see fallback visuals but all gameplay features still work
-
-Polymer is bundled with the mod - no additional downloads required.
+### Animal/Mob Leather Drops (temporarily unavailable)
+The mod is designed to also make animals and undead mobs drop leather and/or leather scraps on death (including bonus scraps for leather armor worn by armor-capable mobs) and to add leather scraps to fishing junk loot. **This part of the mod is currently disabled**: it depends on `fabric-loot-api-v3`, which has no published build for this Minecraft version upstream yet. The rest of the mod (the block, item rename, and all recipes above) is unaffected and works normally. This feature is intended to come back once upstream support lands.
 
 ## Requirements
 
-- Minecraft 1.21.11
-- Fabric Loader 0.18.0+
-- Fabric API
-- Polymer (bundled)
+- Targets the Minecraft, Fabric Loader, and Fabric API versions declared in this mod's `gradle.properties`; check there for the exact currently-supported version
+- Java version as declared in `fabric.mod.json`'s `depends` block
+- Pandorical (see below)
+
+## Pandorical
+
+More Leather registers the Block of Leather's block/item models and renames + reskins vanilla rabbit hide into "Leather Scraps" through Pandorical's content sync, including `overrideVanillaItem` for the rabbit hide rename.
+
+**The Pandorical mod must be installed client-side** to see the Block of Leather rendered and the "Leather Scraps" name/texture on rabbit hide. Without it, the underlying items and recipes still work, but a connecting client sees vanilla names/textures (e.g. "Rabbit Hide" instead of "Leather Scraps") and the Block of Leather may not render correctly.
+
+## Installation
+
+Install alongside its declared dependencies (see `fabric.mod.json`), including Pandorical on connecting clients.
 
 ## License
 
