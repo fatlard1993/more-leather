@@ -43,12 +43,6 @@ Break down leather items into scraps (shapeless crafting):
 ### Animal/Mob Leather Drops (temporarily unavailable)
 The mod is designed to also make animals and undead mobs drop leather and/or leather scraps on death (including bonus scraps for leather armor worn by armor-capable mobs) and to add leather scraps to fishing junk loot. **This part of the mod is currently disabled**: it depends on `fabric-loot-api-v3`, which has no published build for this Minecraft version upstream yet. The rest of the mod (the block, item rename, and all recipes above) is unaffected and works normally. This feature is intended to come back once upstream support lands.
 
-## Requirements
-
-- Targets the Minecraft, Fabric Loader, and Fabric API versions declared in this mod's `gradle.properties`; check there for the exact currently-supported version
-- Java version as declared in `fabric.mod.json`'s `depends` block
-- Pandorical (see below)
-
 ## Pandorical
 
 More Leather registers the Block of Leather's block/item models and renames + reskins vanilla rabbit hide into "Leather Scraps" through Pandorical's content sync, including `overrideVanillaItem` for the rabbit hide rename.
@@ -57,8 +51,8 @@ More Leather registers the Block of Leather's block/item models and renames + re
 
 ## Installation
 
-Install alongside its declared dependencies (see `fabric.mod.json`), including Pandorical on connecting clients.
+Install server-side alongside its declared dependencies (see `fabric.mod.json`); connecting clients need only Pandorical. Version targets live in `gradle.properties` (Minecraft, loader, Fabric API) and `fabric.mod.json` (Java).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+MIT, see [LICENSE](LICENSE).
