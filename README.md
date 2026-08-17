@@ -43,6 +43,14 @@ Break down leather items into scraps (shapeless crafting):
 ### Animal/Mob Leather Drops (temporarily unavailable)
 The mod is designed to also make animals and undead mobs drop leather and/or leather scraps on death (including bonus scraps for leather armor worn by armor-capable mobs) and to add leather scraps to fishing junk loot. **This part of the mod is currently disabled**: it depends on `fabric-loot-api-v3`, which has no published build for this Minecraft version upstream yet. The rest of the mod (the block, item rename, and all recipes above) is unaffected and works normally. This feature is intended to come back once upstream support lands.
 
+## Learning It
+
+Rotten flesh cooks down into hide. That is the best idea here and it is invisible: a furnace gives no hint what it will accept, and the thing every player has too much of is the last thing anyone would think to put in one.
+
+With [village-quests](https://github.com/justfatlard/village-quests) installed, a leatherworker or shepherd asks for a full block of leather and says the trick out loud. Nine leather is past the point where "there is another way to get this" stops being trivia.
+
+Optional and guarded: without village-quests the mod behaves exactly as before.
+
 ## Pandorical
 
 More Leather registers the Block of Leather's block/item models and renames + reskins vanilla rabbit hide into "Leather Scraps" through Pandorical's content sync, including `overrideVanillaItem` for the rabbit hide rename.

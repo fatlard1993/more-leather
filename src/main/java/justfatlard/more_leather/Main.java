@@ -105,6 +105,11 @@ public class Main implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Guarded class load: LeatherQuestRegistration names village-quests types.
+		if (net.fabricmc.loader.api.FabricLoader.getInstance().isModLoaded("village-quests-justfatlard")) {
+			justfatlard.more_leather.integration.LeatherQuestRegistration.register();
+		}
+
 		if (PandoricalApi.isAvailable()) {
 			PandoricalApi.content().registerBlock(MOD_ID + ":leather_block", new BlockRegistration()
 				.model(MOD_ID + ":block/leather_block"));
