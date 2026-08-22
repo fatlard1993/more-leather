@@ -9,3 +9,7 @@ rootProject.name = "more-leather"
 
 include ':pandorical'
 project(':pandorical').projectDir = new File(rootProject.projectDir, '../pandorical')
+
+// Soft: compiled against for the leather lessons, guarded at runtime.
+include ':village-quests'
+project(':village-quests').projectDir = new File(rootProject.projectDir, '../village-quests')
