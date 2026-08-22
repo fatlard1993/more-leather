@@ -1,0 +1,24 @@
+{
+  "display": {
+    "icon": {
+      "id": "more-leather-justfatlard:leather_block"
+    },
+    "title": "Tanner's Yard",
+    "description": "Press a block of leather",
+    "show_toast": true,
+    "announce_to_chat": true
+  },
+  "criteria": {
+    "block": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": "more-leather-justfatlard:leather_block"
+          }
+        ]
+      }
+    }
+  },
+  "parent": "minecraft:husbandry/breed_an_animal"
+}
