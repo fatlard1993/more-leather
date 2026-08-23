@@ -112,6 +112,7 @@ public class Main implements ModInitializer {
 
 		if (PandoricalApi.isAvailable()) {
 			PandoricalApi.content().registerBlock(MOD_ID + ":leather_block", new BlockRegistration()
+				.baseBlock("minecraft:white_wool")
 				.model(MOD_ID + ":block/leather_block"));
 			PandoricalApi.content().registerItem(MOD_ID + ":leather_block", new ItemRegistration()
 				.model(MOD_ID + ":item/leather_block"));
