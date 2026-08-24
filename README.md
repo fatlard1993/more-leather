@@ -47,7 +47,7 @@ The mod is designed to also make animals and undead mobs drop leather and/or lea
 
 Rotten flesh cooks down into hide. That is the best idea here and it is invisible: a furnace gives no hint what it will accept, and the thing every player has too much of is the last thing anyone would think to put in one.
 
-With [village-quests](https://github.com/justfatlard/village-quests) installed, a leatherworker or shepherd asks for a full block of leather and says the trick out loud. Nine leather is past the point where "there is another way to get this" stops being trivia.
+With [village-quests](https://github.com/fatlard1993/village-quests) installed, a leatherworker or shepherd asks for a full block of leather and says the trick out loud. Nine leather is past the point where "there is another way to get this" stops being trivia.
 
 Optional and guarded: without village-quests the mod behaves exactly as before.
 
