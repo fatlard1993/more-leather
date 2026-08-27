@@ -6,6 +6,10 @@ import justfatlard.pandorical.api.PandoricalApi;
 import justfatlard.pandorical.api.VanillaItemOverride;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.creativetab.v1.CreativeModeTabEvents;
+import net.fabricmc.fabric.api.loot.v3.LootTableEvents;
+import net.minecraft.advancements.predicates.ItemPredicate;
+import net.minecraft.advancements.predicates.entity.EntityEquipmentPredicate;
+import net.minecraft.advancements.predicates.entity.EntityPredicate;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -18,6 +22,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,11 +142,81 @@ public class Main implements ModInitializer {
 			entries.insertAfter(Items.HAY_BLOCK, LEATHER_BLOCK_ITEM);
 		});
 
-		// Loot table modifications (leather scraps/bonus drops) are disabled:
-		// fabric-loot-api-v3 has no published build for this Minecraft version yet.
-		// Re-enable once upstream ports it; MOB_DROPS and LEATHER_ARMOR above feed it.
-		// TODO: re-enable when fabric-loot-api-v3 publishes for this MC version
+		LootTableEvents.MODIFY.register((key, tableBuilder, source, wrapperLookup) -> {
+			if (!source.isBuiltin()) {
+				return;
+			}
 
-		LOGGER.info("Loaded More Leather mod! (loot table drops temporarily disabled — fabric-loot-api-v3 not yet available for 26.3)");
+			String path = key.identifier().getPath();
+
+			// Junk catches surface scraps half the time
+			if (path.equals("gameplay/fishing/junk")) {
+				LootPool.Builder fishingScrapsPool = LootPool.lootPool()
+					.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2)))
+					.when(LootItemRandomChanceCondition.randomChance(0.5f));
+				tableBuilder.pool(fishingScrapsPool.build());
+				return;
+			}
+
+			if (!path.startsWith("entities/")) {
+				return;
+			}
+
+			String mobName = path.substring("entities/".length());
+
+			DropConfig config = MOB_DROPS.get(mobName);
+			if (config != null) {
+				if (!config.hasVanillaLeather && config.leatherMax > 0) {
+					LootPool.Builder leatherPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.LEATHER))
+						.apply(SetItemCountFunction.setCount(
+							UniformGenerator.between(config.leatherMin, config.leatherMax)));
+					tableBuilder.pool(leatherPool.build());
+				}
+
+				if (config.scrapsMax > 0) {
+					LootPool.Builder scrapsPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+						.apply(SetItemCountFunction.setCount(
+							UniformGenerator.between(config.scrapsMin, config.scrapsMax)));
+					tableBuilder.pool(scrapsPool.build());
+				}
+			}
+
+			// Worn leather armour comes off the body as scraps
+			if (ARMOR_WEARING_MOBS.contains(mobName)) {
+				var itemLookup = wrapperLookup.lookupOrThrow(Registries.ITEM);
+
+				for (ArmorBonus armor : LEATHER_ARMOR) {
+					ItemPredicate.Builder itemPredicate = ItemPredicate.Builder.item()
+						.of(itemLookup, armor.item);
+
+					EntityEquipmentPredicate.Builder equipmentBuilder = EntityEquipmentPredicate.Builder.equipment();
+
+					if (armor.item == Items.LEATHER_HELMET) {
+						equipmentBuilder.head(itemPredicate);
+					} else if (armor.item == Items.LEATHER_CHESTPLATE) {
+						equipmentBuilder.chest(itemPredicate);
+					} else if (armor.item == Items.LEATHER_LEGGINGS) {
+						equipmentBuilder.legs(itemPredicate);
+					} else if (armor.item == Items.LEATHER_BOOTS) {
+						equipmentBuilder.feet(itemPredicate);
+					}
+
+					LootPool.Builder armorBonusPool = LootPool.lootPool()
+						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
+						.apply(SetItemCountFunction.setCount(ConstantValue.exactly(armor.scraps)))
+						.when(LootItemEntityPropertyCondition.hasProperties(
+							LootContext.EntityTarget.THIS,
+							EntityPredicate.Builder.entity().equipment(equipmentBuilder)
+						));
+
+					tableBuilder.pool(armorBonusPool.build());
+				}
+			}
+		});
+
+		LOGGER.info("Loaded More Leather mod!");
 	}
 }

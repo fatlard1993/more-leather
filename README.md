@@ -40,8 +40,24 @@ Break down leather items into scraps (shapeless crafting):
 ### Smelting Recipes
 - **Rotten Flesh** → Leather Scraps (furnace or smoker)
 
-### Animal/Mob Leather Drops (temporarily unavailable)
-The mod is designed to also make animals and undead mobs drop leather and/or leather scraps on death (including bonus scraps for leather armor worn by armor-capable mobs) and to add leather scraps to fishing junk loot. **This part of the mod is currently disabled**: it depends on `fabric-loot-api-v3`, which has no published build for this Minecraft version upstream yet. The rest of the mod (the block, item rename, and all recipes above) is unaffected and works normally. This feature is intended to come back once upstream support lands.
+### Animal/Mob Leather Drops
+Animals and undead drop leather and/or leather scraps on death, and fishing junk turns up scraps half the time.
+
+| Animal | Leather | Scraps |
+|--------|---------|--------|
+| Cat, Ocelot, Fox, Wolf | 0-1 | 0-2 |
+| Pig, Sheep, Goat | 0-1 | 1-3 |
+| Strider | 0-1 | 1-2 |
+| Polar Bear, Panda, Sniffer | 1-2 | 1-3 |
+| Camel | 1-2 | 1-2 |
+| Cow, Horse, Donkey, Mule, Llama, Trader Llama | vanilla | 1-2 |
+| Mooshroom, Hoglin | vanilla | 2-4 |
+| Ravager | 2-3 | 2-4 |
+| Bat | — | 0-1 |
+| Zombie, Drowned, Zombie Villager | — | 0-1 |
+| Husk | — | 0-2 |
+
+A mob wearing leather armour drops extra scraps for each piece worn: helmet 4, chestplate 6, leggings 5, boots 3.
 
 ## Learning It
 
