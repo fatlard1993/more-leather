@@ -28,8 +28,7 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCondition;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -61,7 +60,7 @@ public class Main implements ModInitializer {
 		new Item.Properties().setId(LEATHER_BLOCK_ITEM_KEY).useBlockDescriptionPrefix()
 	);
 
-	private record DropConfig(float leatherMin, float leatherMax, float scrapsMin, float scrapsMax, boolean hasVanillaLeather) {}
+	private record DropConfig(int leatherMin, int leatherMax, int scrapsMin, int scrapsMax, boolean hasVanillaLeather) {}
 
 	private static final Map<String, DropConfig> MOB_DROPS = Map.ofEntries(
 		// Small animals
@@ -153,7 +152,7 @@ public class Main implements ModInitializer {
 			if (path.equals("gameplay/fishing/junk")) {
 				LootPool.Builder fishingScrapsPool = LootPool.lootPool()
 					.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
-					.apply(SetItemCountFunction.setCount(UniformGenerator.between(1, 2)))
+					.apply(SetItemCountFunction.setCount(ContextIntProviders.between(1, 2)))
 					.when(LootItemRandomChanceCondition.randomChance(0.5f));
 				tableBuilder.pool(fishingScrapsPool.build());
 				return;
@@ -171,7 +170,7 @@ public class Main implements ModInitializer {
 					LootPool.Builder leatherPool = LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.LEATHER))
 						.apply(SetItemCountFunction.setCount(
-							UniformGenerator.between(config.leatherMin, config.leatherMax)));
+							ContextIntProviders.between(config.leatherMin, config.leatherMax)));
 					tableBuilder.pool(leatherPool.build());
 				}
 
@@ -179,7 +178,7 @@ public class Main implements ModInitializer {
 					LootPool.Builder scrapsPool = LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
 						.apply(SetItemCountFunction.setCount(
-							UniformGenerator.between(config.scrapsMin, config.scrapsMax)));
+							ContextIntProviders.between(config.scrapsMin, config.scrapsMax)));
 					tableBuilder.pool(scrapsPool.build());
 				}
 			}
@@ -206,7 +205,7 @@ public class Main implements ModInitializer {
 
 					LootPool.Builder armorBonusPool = LootPool.lootPool()
 						.add(LootItem.lootTableItem(Items.RABBIT_HIDE))
-						.apply(SetItemCountFunction.setCount(ConstantValue.exactly(armor.scraps)))
+						.apply(SetItemCountFunction.setCount(ContextIntProviders.exactly(armor.scraps)))
 						.when(LootItemEntityPropertyCondition.hasProperties(
 							LootContext.EntityTarget.THIS,
 							EntityPredicate.Builder.entity().equipment(equipmentBuilder)
