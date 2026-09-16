@@ -31,17 +31,17 @@ Break down leather items into scraps (shapeless crafting):
 | Written Book | 3 |
 | Bundle | 3 |
 | Saddle | 9 |
-| Harness (all colors) | 9 |
+| Harness (all colors) | 6 |
 
 ### New Crafting Recipes
 - **Saddle**: 3 leather + 2 string + 2 iron ingots
 - **Leather Horse Armor**: 7 leather
 
 ### Smelting Recipes
-- **Rotten Flesh** → Leather Scraps (furnace or smoker)
+- **Rotten Flesh** → Leather Scraps (furnace or smoker, 0.1 XP)
 
 ### Animal/Mob Leather Drops
-Animals and undead drop leather and/or leather scraps on death, and fishing junk turns up scraps half the time.
+Animals and undead drop leather and/or leather scraps on death, and fishing junk turns up 1-2 scraps half the time.
 
 | Animal | Leather | Scraps |
 |--------|---------|--------|
@@ -57,13 +57,13 @@ Animals and undead drop leather and/or leather scraps on death, and fishing junk
 | Zombie, Drowned, Zombie Villager | — | 0-1 |
 | Husk | — | 0-2 |
 
-A mob wearing leather armour drops extra scraps for each piece worn: helmet 4, chestplate 6, leggings 5, boots 3.
+A zombie, husk, drowned, zombie villager, skeleton, stray, wither skeleton, piglin or zombified piglin wearing leather armour drops extra scraps for each piece worn: helmet 4, chestplate 6, leggings 5, boots 3.
 
 ## Learning It
 
 Rotten flesh cooks down into hide. That is the best idea here and it is invisible: a furnace gives no hint what it will accept, and the thing every player has too much of is the last thing anyone would think to put in one.
 
-With [village-quests](https://github.com/fatlard1993/village-quests) installed, a leatherworker or shepherd asks for a full block of leather and says the trick out loud. Nine leather is past the point where "there is another way to get this" stops being trivia.
+With [village-quests](https://github.com/fatlard1993/village-quests) installed, a leatherworker teaches the trade in five lessons, in the order somebody would need them: four scraps (what the unit is), four leather got without killing anything (where the trick is said out loud), a book (what is already made of hide), a pair of leather boots unpicked in front of you for twelve scraps (what unpicking costs), and last a full block of leather. Nine leather is past the point where "there is another way to get this" stops being trivia. Graduating leaves you a block of leather to keep.
 
 Optional and guarded: without village-quests the mod behaves exactly as before.
 

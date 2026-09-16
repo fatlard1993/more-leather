@@ -67,7 +67,7 @@ public final class LeatherQuestRegistration {
 				LessonApi.lines(
 					"Bench is free when you want the next one.",
 					"*not looking up from the stitching* There's another when you've time.",
-					"Next one's ready. It keeps -- hide always does, that's rather the point."),
+					"Next one's ready. It keeps. Hide always does, that's rather the point."),
 				LessonApi.lines(
 					"{former} is gone. Their awl is still on the bench where they set it down.",
 					"You'll have heard about {former}. They were teaching you what the stuff is worth, weren't they."),
@@ -100,30 +100,30 @@ public final class LeatherQuestRegistration {
 		return List.of(
 			new LessonApi.Lesson(
 				"Before anything else: bring me four scraps. Rabbits, if you must, though I will show you better shortly. Four. Not three, "
-					+ "not a whole hide -- four scraps, so you have them in your hand while I tell you what they are.",
+					+ "not a whole hide. Four scraps, so you have them in your hand while I tell you what they are.",
 				"bring {name} four leather scraps",
 				"Four scraps make a leather. A leather makes four scraps. Exactly.",
 				"*lines them up on the bench* There. Four of these is one leather, and one leather comes apart into four of these again. "
 					+ "Exactly four, both directions, nothing lost either way. Leather is not the unit. This is. Leather is just four of "
 					+ "them tied up so they stack better.",
-				"Which means you are never stuck. Too many scraps and not enough leather, or the other way about -- either is a moment's "
+				"Which means you are never stuck. Too many scraps and not enough leather, or the other way about. Either is a moment's "
 					+ "work at a bench. Nobody ever thinks to go backwards.",
 				SCRAP, atLeast(SCRAP, 4), 6),
 
 			new LessonApi.Lesson(
 				"Now the better way I mentioned. Four leather this time, and I want you to get them without troubling a single cow. "
-					+ "-- I will not tell you how. You have the answer in your pack already and have been throwing it away for months.",
-				"bring {name} four leather -- without killing anything for it",
+					+ "I will not tell you how. You have the answer in your pack already and have been throwing it away for months.",
+				"bring {name} four leather, without killing anything for it",
 				"Rotten flesh. In a furnace. It comes out as hide. It always has.",
 				"*takes them* Rotten flesh. That is the answer. Put it in a furnace or a smoker like it were a joint of meat and it comes "
-					+ "out hide. It has always done that, and nothing in the world would ever tell you so -- a furnace gives no hint what "
+					+ "out hide. It has always done that, and nothing in the world would ever tell you so. A furnace gives no hint what "
 					+ "it will take.",
 				"And you have too much of it. Everyone does. It is the one thing nobody carries home and the only thing here that is "
-					+ "genuinely without limit -- the dark makes more of it every night whether you turn up or not.",
+					+ "genuinely without limit. The dark makes more of it every night whether you turn up or not.",
 				Items.LEATHER, atLeast(Items.LEATHER, 4), 6),
 
 			new LessonApi.Lesson(
-				"A book. One book, any book -- off a shelf, out of a chest, off a librarian, I do not care where. Bring it here and do not "
+				"A book. One book, any book. Off a shelf, out of a chest, off a librarian, I do not care where. Bring it here and do not "
 					+ "read it on the way.",
 				"bring {name} a book",
 				"That's three scraps in your hand. A book is mostly hide.",
@@ -139,21 +139,21 @@ public final class LeatherQuestRegistration {
 				"bring {name} a pair of leather boots",
 				"Four leather in. Twelve scraps back. Three quarters. Always three quarters.",
 				"*unpicks them without hurrying, counts the pile* Twelve. Boots cost four leather to make, which is sixteen scraps, and "
-					+ "they give back twelve. Three quarters. -- Now: the helmet is three quarters. The chestplate is three quarters. The "
+					+ "they give back twelve. Three quarters. Now. The helmet is three quarters. The chestplate is three quarters. The "
 					+ "leggings, the horse armour, the saddle, the book, the frame. Every one of them, three quarters.",
-				"So never make a thing to store hide in -- you pay a quarter for the privilege. But a pair of boots you found in a chest "
+				"So never make a thing to store hide in. You pay a quarter for the privilege. But a pair of boots you found in a chest "
 					+ "cost you nothing at all, and three quarters of nothing is still twelve scraps. Strip the ruins. Leave the cows.",
 				Items.LEATHER_BOOTS, stack -> stack.is(Items.LEATHER_BOOTS), 8),
 
 			new LessonApi.Lesson(
-				"Last thing. A full block of leather -- nine, pressed together. And I will know if you bought it. By now you should be "
+				"Last thing. A full block of leather. Nine, pressed together. And I will know if you bought it. By now you should be "
 					+ "able to make nine without going near a living animal, and that is the only reason I am asking for nine.",
 				"bring {name} a block of leather",
 				"Nine in, nine out. The press is the one thing that costs you nothing.",
-				"*sets it on the shelf, satisfied* Nine leather in and nine leather out again whenever you want them -- the press is the "
+				"*sets it on the shelf, satisfied* Nine leather in and nine leather out again whenever you want them. The press is the "
 					+ "one thing in this trade that takes no cut at all. Everything else you now know rounds down. This does not.",
 				"And you got there off flesh nobody wanted and books nobody read. That is the whole trade. Not making hide out of "
-					+ "nothing -- noticing it was already hide.",
+					+ "nothing. Noticing it was already hide.",
 				null, stack -> {
 					Item block = leatherBlock();
 					return block != null && stack.is(block);
