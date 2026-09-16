@@ -2,6 +2,11 @@
 
 A Fabric mod that makes leather more accessible and useful by renaming/reskinning rabbit hide into "Leather Scraps," adding a decorative Block of Leather, and adding a wide set of data-driven recipes for turning leather items into scraps and back.
 
+## Screenshots
+
+![A leather scrap in a frame, hung on a block of leather](img.png)
+![Scraps on the ground in front of the block they make](img2.png)
+
 ## Features
 
 ### Renamed Item
