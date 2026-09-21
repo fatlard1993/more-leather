@@ -1,0 +1,20 @@
+{
+	"overview": [
+		"Leather made worth having: rotten flesh smelts into it, leather gear comes apart into scraps and back again, and saddles and horse armor are finally craftable."
+	],
+	"versions": {
+		"2.0.1": [
+			"Leather and scraps drop from the mobs that carry them again, through the game's own loot shape."
+		],
+		"2.0.0": [
+			"Every recipe brings the advancement that unlocks it, so these show up in the recipe book the moment you can make them, and the client is told what each one is made of."
+		],
+		"1.1.1": [
+			"A leatherworker with lessons to teach, because the best trick here is invisible: no furnace tells you it will take rotten flesh.",
+			"An advancement for your first block of leather."
+		],
+		"1.0.0": [
+			"Rabbit hide becomes Leather Scraps, rotten flesh smelts down, leather items deconstruct into scraps and craft back up, and a Block of Leather to keep it all in."
+		]
+	}
+}

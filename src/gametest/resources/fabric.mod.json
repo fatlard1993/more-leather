@@ -1,0 +1,18 @@
+{
+	"schemaVersion": 1,
+	"id": "more-leather-gametest",
+	"version": "1.0.0",
+	"name": "More Leather smoke test",
+	"description": "Loads the mod, joins a world, and fails if anything on the way threw.",
+	"license": "MIT",
+	"environment": "*",
+	"entrypoints": {
+		"fabric-client-gametest": [
+			"justfatlard.more_leather.gametest.SmokeTest"
+		]
+	},
+	"depends": {
+		"more-leather-justfatlard": "*",
+		"fabric-client-gametest-api-v1": "*"
+	}
+}
