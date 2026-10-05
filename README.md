@@ -4,8 +4,6 @@ A Fabric mod that makes leather more accessible and useful by renaming/reskinnin
 
 ## Screenshots
 
-![A leather scrap in a frame, hung on a block of leather](img.png)
-![Scraps on the ground in front of the block they make](img2.png)
 
 ## Features
 
