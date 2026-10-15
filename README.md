@@ -2,9 +2,6 @@
 
 A Fabric mod that makes leather more accessible and useful by renaming/reskinning rabbit hide into "Leather Scraps," adding a decorative Block of Leather, and adding a wide set of data-driven recipes for turning leather items into scraps and back.
 
-## Screenshots
-
-
 ## Features
 
 ### Renamed Item
@@ -68,13 +65,9 @@ Rotten flesh cooks down into hide. That is the best idea here and it is invisibl
 
 With [village-quests](https://github.com/fatlard1993/village-quests) installed, a leatherworker teaches the trade in five lessons, in the order somebody would need them: four scraps (what the unit is), four leather got without killing anything (where the trick is said out loud), a book (what is already made of hide), a pair of leather boots unpicked in front of you for twelve scraps (what unpicking costs), and last a full block of leather. Nine leather is past the point where "there is another way to get this" stops being trivia. Graduating leaves you a block of leather to keep.
 
-Optional and guarded: without village-quests the mod behaves exactly as before.
-
 ## Pandorical
 
-More Leather registers the Block of Leather's block/item models and renames + reskins vanilla rabbit hide into "Leather Scraps" through Pandorical's content sync, including `overrideVanillaItem` for the rabbit hide rename.
-
-**The Pandorical mod must be installed client-side** to see the Block of Leather rendered and the "Leather Scraps" name/texture on rabbit hide. Without it, the underlying items and recipes still work, but a connecting client sees vanilla names/textures (e.g. "Rabbit Hide" instead of "Leather Scraps") and the Block of Leather may not render correctly.
+More Leather goes on the server only, and **Pandorical is required there and on every player's client**: the Block of Leather is a new block, and a client without Pandorical has no entry for it. Pandorical is also what renames rabbit hide to Leather Scraps and gives it its new picture.
 
 ## Development
 
