@@ -1,0 +1,45 @@
+{
+  "demo": {
+    "name": "More Leather",
+    "icon": "more-leather-justfatlard:leather_block",
+    "about": [
+      "Rabbit hide becomes Leather Scraps, and scraps come from zombies, animals, rotten flesh and old leather gear, four to a piece of leather.",
+      "Zombies and husks drop scraps here: fight a few, smelt rotten flesh into scraps, break leather armor down at the table, and press leather into a Block of Leather."
+    ]
+  },
+  "pvp_preset": 1,
+  "needs": ["more-leather-justfatlard"],
+  "preset": {
+    "name": "More Leather",
+    "icon": "more-leather-justfatlard:leather_block",
+    "pvp": false,
+    "game_mode": "survival",
+    "entry_kit": [
+      {"slot": 0, "item": {"id": "minecraft:iron_sword", "count": 1}},
+      {"slot": 1, "item": {"id": "minecraft:crafting_table", "count": 1}},
+      {"slot": 2, "item": {"id": "minecraft:furnace", "count": 1}},
+      {"slot": 3, "item": {"id": "minecraft:rotten_flesh", "count": 16}},
+      {"slot": 4, "item": {"id": "minecraft:coal", "count": 8}},
+      {"slot": 5, "item": {"id": "minecraft:leather_helmet", "count": 1}},
+      {"slot": 6, "item": {"id": "minecraft:leather_boots", "count": 1}},
+      {"slot": 7, "item": {"id": "minecraft:leather", "count": 12}},
+      {"slot": 8, "item": {"id": "minecraft:cooked_beef", "count": 8}},
+      {"slot": 9, "item": {"id": "minecraft:string", "count": 2}},
+      {"slot": 10, "item": {"id": "minecraft:iron_ingot", "count": 2}},
+      {"slot": 11, "item": {"id": "minecraft:rabbit_hide", "count": 8}},
+      {"slot": 38, "item": {"id": "minecraft:iron_chestplate", "count": 1}}
+    ],
+    "respawn_kit": "entry",
+    "goal": "time",
+    "mobs": "always",
+    "mob_rarity": "normal",
+    "mob_default": "off",
+    "mob_levels": { "minecraft:zombie": "normal", "minecraft:husk": "normal" },
+    "life": 15,
+    "size": 3,
+    "world": "overworld",
+    "shape": "natural",
+    "biome": "minecraft:savanna",
+    "weather": "clear"
+  }
+}
