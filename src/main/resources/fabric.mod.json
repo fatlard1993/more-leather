@@ -3,7 +3,7 @@
 	"id": "more-leather-justfatlard",
 	"version": "${version}",
 	"name": "More Leather",
-	"description": "Leather economy overhaul: smelt rotten flesh into leather, deconstruct leather items into scraps, craft saddles and horse armor, and build a Block of Leather. Animal leather drops return when fabric-loot-api-v3 ships for this Minecraft version.",
+	"description": "A leather economy: leather from rotten flesh, scraps, saddles and horse armor",
 	"authors": [
 		"justfatlard"
 	],
